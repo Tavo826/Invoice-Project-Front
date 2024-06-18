@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div class="col d-flex justify-content-center">
+    <div class="card mt-4">
+        <div class="card-body">
+            <form [formGroup]="form_auth" (ngSubmit)="procesar()">
+    
+                <div class="mb-2">
+                    <label class="form-label">
+                        Username
+                    </label>
+    
+                    <input 
+                    type="text" 
+                    formControlName="username"
+                    class="form-control"
+                    placeholder="Enter username">
+    
+                    <div class="alert alert-danger mt2" [hidden]="user.valid || user.pristine">
+                        Username is mandatory
+                    </div>
+                </div>
+    
+                <div class="mb-2">
+                    <label class="form-label">
+                        Password
+                    </label>
+    
+                    <input 
+                    type="password" 
+                    formControlName="password"
+                    class="form-control"
+                    placeholder="Enter password">
+    
+                    <div class="alert alert-danger mt2" [hidden]="password.valid || password.pristine">
+                        Password is mandatory
+                    </div>
+                </div>
+    
+                <button class="btn btn-primary mt-2" [disabled]="form_auth.invalid">
+                    Log In
+                </button>
+    
+            </form>
+
+            <div class="alert alert-danger mt-4" *ngIf="code!=200" [ngSwitch]="code">
+                <span *ngSwitchCase="404">User or password incorrect</span>
+                <span *ngSwitchDefault>Internal Server Error</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
