@@ -1,15 +1,17 @@
 FROM node:latest as build
 
-WORKDIR /usr/local/app
-COPY ./ /usr/local/app/
-COPY ./invoicer/package.json /usr/local/app/package.json
+RUN mkdir -p /app
 
+WORKDIR /app
+
+COPY package*.json /app
 RUN npm install
-RUN npm run build
 
-FROM nginx:latest
+COPY . /app
+RUN npm run build --prod
 
-# Copy the build output to replace the default nginx contents.
-COPY --from=build /usr/local/app/dist/invoicer /usr/share/nginx/html
+from nginx:alpine
+
+COPY --from=build /app/dist/invoicer/browser /usr/share/nginx/html
 
 EXPOSE 80
