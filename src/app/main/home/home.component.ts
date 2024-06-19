@@ -45,7 +45,7 @@ export class HomeComponent {
   result: any
 
   ngOnInit() {
-    this.http.get('https://localhost:7158/api/v1/Invoicer/GetInvoiceList')
+    this.http.get('http://igorditto-001-site1.ctempurl.com/Invoicer/GetInvoiceList')
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status
       return of();
@@ -57,7 +57,7 @@ export class HomeComponent {
   }
 
   procesar() {
-    this.http.post<any>('https://localhost:7158/api/v1/Invoicer/Create', 
+    this.http.post<any>('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/Create', 
       this.form_invoice.getRawValue()
     )
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
@@ -67,7 +67,7 @@ export class HomeComponent {
     .subscribe(response => {
       this.code = response.code
       if (response.response) {
-        this.http.get('https://localhost:7158/api/v1/Invoicer/GetInvoiceList')
+        this.http.get('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/GetInvoiceList')
         .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
           this.code = error.status
           return of();

@@ -18,7 +18,7 @@ export class DetailComponent {
   result: any
 
   ngOnInit() {
-    this.http.get('https://localhost:7158/api/v1/Invoicer/GetProductListByInvoiceId/' + this.invoiceDetail.invoiceId)
+    this.http.get('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/GetProductListByInvoiceId/' + this.invoiceDetail.invoiceId)
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status
       return of();
