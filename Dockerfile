@@ -14,4 +14,4 @@ from nginx:alpine
 
 COPY --from=build /app/dist/invoicer/browser /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 4200
