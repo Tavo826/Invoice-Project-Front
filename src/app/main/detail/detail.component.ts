@@ -20,7 +20,7 @@ export class DetailComponent {
   result: any
 
   ngOnInit() {
-    this.http.get('https://localhost:7158/api/v1/Invoicer/GetProductListByInvoiceId/' + this.invoiceDetail.invoiceId, { headers: this.httpHeaders })
+    this.http.get('https://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/GetProductListByInvoiceId/' + this.invoiceDetail.invoiceId, { headers: this.httpHeaders })
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status
       return of();

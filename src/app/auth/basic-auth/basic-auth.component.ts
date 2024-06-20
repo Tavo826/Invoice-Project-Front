@@ -36,7 +36,7 @@ export class BasicAuthComponent {
   code: number = 200
 
   procesar() {
-    this.http.post<any>('https://localhost:7158/api/v1/User/Validate', 
+    this.http.post<any>('https://igorditto-001-site1.ctempurl.com/api/v1/User/Validate', 
       this.form_auth.getRawValue(), { headers: this.httpHeaders }
     )
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
