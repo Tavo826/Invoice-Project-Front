@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -18,6 +18,8 @@ export class BasicAuthComponent {
               private router: Router
             ) {}
 
+  httpHeaders: HttpHeaders = new HttpHeaders({Autorization: 'Basic MTExODI1MjI6NjAtZGF5ZnJlZXRyaWFs'})
+
   form_auth = this.fb.group({
     'username': ['', Validators.required],
     'password': ['', Validators.required]
@@ -35,7 +37,7 @@ export class BasicAuthComponent {
 
   procesar() {
     this.http.post<any>('http://igorditto-001-site1.ctempurl.com/api/v1/User/Validate', 
-      this.form_auth.getRawValue()
+      this.form_auth.getRawValue(), {headers: this.httpHeaders}
     )
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status

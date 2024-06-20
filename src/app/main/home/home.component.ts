@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ export class HomeComponent {
               private invoiceDetail: InvoiceDetailService,
               private router: Router
   ) {}
+
+  httpHeaders: HttpHeaders = new HttpHeaders({Autorization: 'Basic MTExODI1MjI6NjAtZGF5ZnJlZXRyaWFs'})
 
   form_invoice = this.fb.group({
     'client': ['', Validators.required],
@@ -45,7 +47,7 @@ export class HomeComponent {
   result: any
 
   ngOnInit() {
-    this.http.get('http://igorditto-001-site1.ctempurl.com/Invoicer/GetInvoiceList')
+    this.http.get('http://igorditto-001-site1.ctempurl.com/Invoicer/GetInvoiceList', { headers: this.httpHeaders })
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status
       return of();
@@ -58,7 +60,7 @@ export class HomeComponent {
 
   procesar() {
     this.http.post<any>('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/Create', 
-      this.form_invoice.getRawValue()
+      this.form_invoice.getRawValue(), { headers: this.httpHeaders }
     )
     .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
       this.code = error.status
@@ -67,7 +69,7 @@ export class HomeComponent {
     .subscribe(response => {
       this.code = response.code
       if (response.response) {
-        this.http.get('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/GetInvoiceList')
+        this.http.get('http://igorditto-001-site1.ctempurl.com/api/v1/Invoicer/GetInvoiceList', { headers: this.httpHeaders })
         .pipe(catchError((error: any, caught: Observable<any>): Observable<any> => {
           this.code = error.status
           return of();
